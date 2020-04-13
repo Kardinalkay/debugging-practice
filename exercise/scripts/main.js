@@ -1,10 +1,29 @@
+/*
+1. If card is selected, reveal it
+2. If 2 cards are selected and don't match, hide them, and reshuffle
+
+*/
+
 
 
 window.addEventListener('DOMContentLoaded', function() {
     
-  var cards = document.querySelectorAll('.card');
-  var selectedCards = [];
-  var matchedCards = [];
+    const cards = document.querySelectorAll('.card');
+    const selectedCards = [];
+    const matchedCards = [];
+    
+    // Reveal card
+    
+    function revealCard (el) {
+        el.classList.add('is-selected');    
+    }
+    
+    //Flip back cards
+
+    function flipCard(el) {
+        el.classList.remove('is-selected');
+    }
+
 
   cards.forEach(function(card) {
       
@@ -18,31 +37,60 @@ window.addEventListener('DOMContentLoaded', function() {
       // If we haven't selected 2 cards yet, add the current card to the
       // collection of selected cards and apply the correct CSS class.
         
-      if (selectedCards.length < 2) {
-          selectedCards.push(card); // Add to SelectedCards Array
-          console.log(selectedCards);   // div.card.is-selected
-          card.classList.add('is-selected');    // div.card.is-selected
-      }
-
-      // If we have selected two cards, see if they match.
-      if (selectedCards.length === 2) {
           
-        var card1 = selectedCards[0];
-        var card2 = selectedCards[0];
+      selectedCards.push(card); 
 
-        // If the cards match, add them to the collection of matched cards and
-        // apply the correct CSS class.
-        if (card1.innerText === card2.innerText) {
-          matchedCards.push(card1, card2);
-          card1.classList.add('is-matched');
-          card2.classList.add('is-matched');
-        }
+      // 1.           
+      revealCard(card);
+        
+      // 2. 
+        
+      // If we have selected two cards, see if they match.
+        
+      if (selectedCards.length === 2) {
+                    
+          var card1 = selectedCards[0];
+          var card2 = selectedCards[1];
+
+          // If the cards match, add them to the collection of matched cards and
+          // apply the correct CSS class.
+          
+          if (card1.innerText === card2.innerText) {
+             
+              alert ("There's a match");
+            
+              matchedCards.push(card1, card2);
+              card1.classList.add('is-matched');
+              card2.classList.add('is-matched');
+              
+          } else {    
+                            
+              // Flip back cards
+              
+              alert ("Flip back cards");
+                            
+              let selected = document.querySelectorAll('.is-selected');
+              
+              setTimeout(function(){ 
+                  
+                  selected.forEach(function(el) {
+                      flipCard(el);
+                  });
+                  
+              }, 1000);
+                            
+
+
+              
+              // Reshuffle
+              
+          }
 
         // Regardless of whether or not the cards match, deselect them and reset
         // the collection of matched cards.
-        card1.classList.remove('is-selected');
+/*        card1.classList.remove('is-selected');
         card3.classList.remove('is-selected');
-        selectedCards = [];
+        selectedCards = [];*/
       }
 
       // If we've matched all the cards, display a message.
