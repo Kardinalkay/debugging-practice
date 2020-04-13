@@ -1,6 +1,8 @@
 /*
 1. If card is selected, reveal it
-2. If pairs of cards are selected and don't match, hide them, and reshuffle
+2. If pairs of cards are selected and don't match, hide them
+    2b. ...and reshuffle
+3. If card has been selected already, ignore
 
 */
 
@@ -16,45 +18,40 @@ window.addEventListener('DOMContentLoaded', function() {
     function revealCard (el, selCards, card) {
         el.classList.add('is-selected'); 
         selCards.push(card); 
-        console.log(selCards);
     }
     
     //Flip back cards
 
-    function flipCard(el) {
+/*    function flipCard(el) {
         el.classList.remove('is-selected');
-    }
+    }*/
 
 
     cards.forEach(function(card) {
       
         card.addEventListener('click', function() {
         
-        //If the card has already been matched, ignore it.
+        //3. 
+            
         if (card.classList.contains('is-selected')) {
-            alert ('Youve selected')
+            alert ('Same selection disallowed!')
             return;
         }
           
-        // 1.           
+        // 1.      
+            
         revealCard(card, selectedCards, card);
 
         // 2. 
 
         if ((selectedCards.length)%2 == 0 && selectedCards.length > 1) {
             
-            console.log(selectedCards);
-
-            
             let card1 = selectedCards[selectedCards.length - 1];
             let card2 = selectedCards[selectedCards.length - 2];
             
-            // If the cards match, add them to the collection of matched cards and
-            // apply the correct CSS class.
-
             if (card1.innerText === card2.innerText) {
 
-                alert ("There's a match");
+                alert ("There's a match!");
 
                 matchedCards.push(card1, card2);
                 console.log(matchedCards);
@@ -65,13 +62,11 @@ window.addEventListener('DOMContentLoaded', function() {
             } else {    
 
                 // Flip back cards
-
-                alert ("Flip back cards");
+                alert ("Sorry, cards do not match.");
 
                 let selected = document.querySelectorAll('.is-selected');
 
                 /*Set timeout to let user see change before flipping*/
-
                 setTimeout(() => { 
 
                     selected.forEach((el) => {
@@ -83,15 +78,10 @@ window.addEventListener('DOMContentLoaded', function() {
                 selectedCards = [];
                 matchedCards = [];
 
-
                   // Reshuffle
 
               }
 
-            // Regardless of whether or not the cards match, deselect them and reset
-            // the collection of matched cards.
-    /*        card1.classList.remove('is-selected');
-            card3.classList.remove('is-selected');*/
           }
 
         // If we've matched all the cards, display a message.
