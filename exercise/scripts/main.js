@@ -1,22 +1,22 @@
 /*
 1. If card is selected, reveal it
-2. If 2 cards are selected and don't match, hide them, and reshuffle
+2. If pairs of cards are selected and don't match, hide them, and reshuffle
 
 */
-
 
 
 window.addEventListener('DOMContentLoaded', function() {
     
     const cards = document.querySelectorAll('.card');
-    const selectedCards = [];
-    const matchedCards = [];
+    let selectedCards = [];
+    let matchedCards = [];
     
     // Reveal card
     
     function revealCard (el, selCards, card) {
         el.classList.add('is-selected'); 
         selCards.push(card); 
+        console.log(selCards);
     }
     
     //Flip back cards
@@ -30,27 +30,25 @@ window.addEventListener('DOMContentLoaded', function() {
       
         card.addEventListener('click', function() {
         
-        // If the card has already been matched, ignore it.
-        /*if (card.classList.contains('is-matched')) {
-              return;
-        }*/
+        //If the card has already been matched, ignore it.
+        if (card.classList.contains('is-selected')) {
+            alert ('Youve selected')
+            return;
+        }
           
         // 1.           
         revealCard(card, selectedCards, card);
 
         // 2. 
 
-        if (selectedCards.length > 1) {
+        if ((selectedCards.length)%2 == 0 && selectedCards.length > 1) {
             
             console.log(selectedCards);
+
             
             let card1 = selectedCards[selectedCards.length - 1];
             let card2 = selectedCards[selectedCards.length - 2];
             
-            console.log("card 2 :");
-            console.log(card2);
-
-
             // If the cards match, add them to the collection of matched cards and
             // apply the correct CSS class.
 
@@ -58,11 +56,11 @@ window.addEventListener('DOMContentLoaded', function() {
 
                 alert ("There's a match");
 
-                //matchedCards.push(card1, card2);
+                matchedCards.push(card1, card2);
                 console.log(matchedCards);
 
-                /*card1.classList.add('is-matched');
-                card2.classList.add('is-matched');*/
+                card1.classList.add('is-matched');
+                card2.classList.add('is-matched');
 
             } else {    
 
@@ -83,6 +81,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 }, 1000);
                                 
                 selectedCards = [];
+                matchedCards = [];
 
 
                   // Reshuffle

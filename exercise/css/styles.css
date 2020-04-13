@@ -54,7 +54,11 @@ main {
 If the card is either selected or matched, display the character by setting
 the background colour to white.
 */
-.card.is-selected,
-.card.is-matched {
+.card.is-selected {
   background: #fff;
 }
+
+.card.is-matched {
+    /background: ;
+}
+
