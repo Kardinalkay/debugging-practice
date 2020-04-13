@@ -14,6 +14,7 @@ window.addEventListener('DOMContentLoaded', function() {
     const cards = document.querySelectorAll('.card');
     let selectedCards = [];
     let matchedCards = [];
+    let $alert = document.getElementById('alert');
     
     // Reveal card
     
@@ -30,10 +31,33 @@ window.addEventListener('DOMContentLoaded', function() {
     
     // Notify
     
-    notify = () => {
-        
+    notify = (note) => {
+        $alert.classList.add('show');
+        alert(note);
+        $alert.textContent = (note);
     }
+    
+    // Reset 
+    
+    reset = (el) => {
+        
+        selectedCards = [];
+        matchedCards = [];  
+        
+        let selected = document.querySelectorAll(el);
 
+        /*Set timeout to let user see change before flipping*/
+        setTimeout(() => { 
+
+            selected.forEach((el) => {
+                flipCard(el);
+            });
+
+        }, 1000);
+        
+        // reshuffle();
+
+    }
 
     cards.forEach(function(card) {
       
@@ -41,11 +65,14 @@ window.addEventListener('DOMContentLoaded', function() {
             
             //4.
             
-            if (cards.length === selectedCards.length) {
+
+            if (cards.length === (selectedCards.length + 1)) {
                 
-                // notify();
+                let note = "Congratulations! You won."
                 
-                // shuffle();
+                notify(note);
+                                
+                reset('.is-selected');
                 
             } else {
                 
@@ -68,11 +95,12 @@ window.addEventListener('DOMContentLoaded', function() {
                     let card2 = selectedCards[selectedCards.length - 2];
 
                     if (card1.innerText === card2.innerText) {
+                        
+                        let note = "There's a match!"
 
-                        alert ("There's a match!");
+                        notify(note);
 
                         matchedCards.push(card1, card2);
-                        console.log(matchedCards);
 
                         card1.classList.add('is-matched');
                         card2.classList.add('is-matched');
@@ -82,21 +110,7 @@ window.addEventListener('DOMContentLoaded', function() {
                         // Flip back cards
                         alert ("Sorry, cards do not match.");
 
-                        let selected = document.querySelectorAll('.is-selected');
-
-                        /*Set timeout to let user see change before flipping*/
-                        setTimeout(() => { 
-
-                            selected.forEach((el) => {
-                                flipCard(el);
-                            });
-
-                        }, 1000);
-
-                        selectedCards = [];
-                        matchedCards = [];
-
-                          // Reshuffle
+                        reset('.is-selected');
 
                       }
 
