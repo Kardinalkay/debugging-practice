@@ -14,8 +14,9 @@ window.addEventListener('DOMContentLoaded', function() {
     
     // Reveal card
     
-    function revealCard (el) {
-        el.classList.add('is-selected');    
+    function revealCard (el, selCards, card) {
+        el.classList.add('is-selected'); 
+        selCards.push(card); 
     }
     
     //Flip back cards
@@ -25,80 +26,79 @@ window.addEventListener('DOMContentLoaded', function() {
     }
 
 
-  cards.forEach(function(card) {
+    cards.forEach(function(card) {
       
-    card.addEventListener('click', function() {
+        card.addEventListener('click', function() {
         
-      // If the card has already been matched, ignore it.
-      if (card.classList.contains('is-matched')) {
-        return;
-      }
-
-      // If we haven't selected 2 cards yet, add the current card to the
-      // collection of selected cards and apply the correct CSS class.
-        
+        // If the card has already been matched, ignore it.
+        /*if (card.classList.contains('is-matched')) {
+              return;
+        }*/
           
-      selectedCards.push(card); 
+        // 1.           
+        revealCard(card, selectedCards, card);
 
-      // 1.           
-      revealCard(card);
-        
-      // 2. 
-        
-      // If we have selected two cards, see if they match.
-        
-      if (selectedCards.length === 2) {
-                    
-          var card1 = selectedCards[0];
-          var card2 = selectedCards[1];
+        // 2. 
 
-          // If the cards match, add them to the collection of matched cards and
-          // apply the correct CSS class.
-          
-          if (card1.innerText === card2.innerText) {
-             
-              alert ("There's a match");
+        if (selectedCards.length > 1) {
             
-              matchedCards.push(card1, card2);
-              card1.classList.add('is-matched');
-              card2.classList.add('is-matched');
-              
-          } else {    
-                            
-              // Flip back cards
-              
-              alert ("Flip back cards");
-                            
-              let selected = document.querySelectorAll('.is-selected');
-              
-              /*Set timeout to let user see change before flipping*/
-              
-              setTimeout(function(){ 
-                  
-                  selected.forEach(function(el) {
-                      flipCard(el);
-                  });
-                  
-              }, 1000);
-                            
+            console.log(selectedCards);
+            
+            let card1 = selectedCards[selectedCards.length - 1];
+            let card2 = selectedCards[selectedCards.length - 2];
+            
+            console.log("card 2 :");
+            console.log(card2);
 
 
-              
-              // Reshuffle
-              
+            // If the cards match, add them to the collection of matched cards and
+            // apply the correct CSS class.
+
+            if (card1.innerText === card2.innerText) {
+
+                alert ("There's a match");
+
+                //matchedCards.push(card1, card2);
+                console.log(matchedCards);
+
+                /*card1.classList.add('is-matched');
+                card2.classList.add('is-matched');*/
+
+            } else {    
+
+                // Flip back cards
+
+                alert ("Flip back cards");
+
+                let selected = document.querySelectorAll('.is-selected');
+
+                /*Set timeout to let user see change before flipping*/
+
+                setTimeout(() => { 
+
+                    selected.forEach((el) => {
+                        flipCard(el);
+                    });
+
+                }, 1000);
+                                
+                selectedCards = [];
+
+
+                  // Reshuffle
+
+              }
+
+            // Regardless of whether or not the cards match, deselect them and reset
+            // the collection of matched cards.
+    /*        card1.classList.remove('is-selected');
+            card3.classList.remove('is-selected');*/
           }
 
-        // Regardless of whether or not the cards match, deselect them and reset
-        // the collection of matched cards.
-/*        card1.classList.remove('is-selected');
-        card3.classList.remove('is-selected');
-        selectedCards = [];*/
-      }
-
-      // If we've matched all the cards, display a message.
-      if (matchedCards.length > cards.length) {
-        alert('You matched all the cards, nice job!');
-      }
+        // If we've matched all the cards, display a message.
+        if (matchedCards.length > cards.length) {
+            alert('You matched all the cards, nice job!');
+        }
         
     });
       
