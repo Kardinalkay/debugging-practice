@@ -1,10 +1,15 @@
+
+
 window.addEventListener('DOMContentLoaded', function() {
+    
   var cards = document.querySelectorAll('.card');
   var selectedCards = [];
   var matchedCards = [];
 
   cards.forEach(function(card) {
+      
     card.addEventListener('click', function() {
+        
       // If the card has already been matched, ignore it.
       if (card.classList.contains('is-matched')) {
         return;
@@ -12,12 +17,16 @@ window.addEventListener('DOMContentLoaded', function() {
 
       // If we haven't selected 2 cards yet, add the current card to the
       // collection of selected cards and apply the correct CSS class.
+        
       if (selectedCards.length < 2) {
-        card.classList.add('is-selected');
+          selectedCards.push(card); // Add to SelectedCards Array
+          console.log(selectedCards);   // div.card.is-selected
+          card.classList.add('is-selected');    // div.card.is-selected
       }
 
       // If we have selected two cards, see if they match.
       if (selectedCards.length === 2) {
+          
         var card1 = selectedCards[0];
         var card2 = selectedCards[0];
 
@@ -40,6 +49,9 @@ window.addEventListener('DOMContentLoaded', function() {
       if (matchedCards.length > cards.length) {
         alert('You matched all the cards, nice job!');
       }
+        
     });
+      
   });
+    
 });
