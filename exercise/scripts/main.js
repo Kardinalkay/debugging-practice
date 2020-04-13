@@ -4,6 +4,8 @@
     2b. ...and reshuffle
 3. If card has been selected already, ignore
 
+4. Check if game has ended
+
 */
 
 
@@ -30,67 +32,75 @@ window.addEventListener('DOMContentLoaded', function() {
     cards.forEach(function(card) {
       
         card.addEventListener('click', function() {
-        
-        //3. 
             
-        if (card.classList.contains('is-selected')) {
-            alert ('Same selection disallowed!')
-            return;
-        }
-          
-        // 1.      
+            //4.
             
-        revealCard(card, selectedCards, card);
+            if (cards.length === selectedCards.length) {
+                
+                // notify();
+                
+                // shuffle();
+                
+            } else {
+                
+                //3. 
 
-        // 2. 
+                if (card.classList.contains('is-selected')) {
+                    alert ('Same selection disallowed!')
+                    return;
+                }
 
-        if ((selectedCards.length)%2 == 0 && selectedCards.length > 1) {
-            
-            let card1 = selectedCards[selectedCards.length - 1];
-            let card2 = selectedCards[selectedCards.length - 2];
-            
-            if (card1.innerText === card2.innerText) {
+                // 1.      
 
-                alert ("There's a match!");
+                revealCard(card, selectedCards, card);
 
-                matchedCards.push(card1, card2);
-                console.log(matchedCards);
+                // 2. 
 
-                card1.classList.add('is-matched');
-                card2.classList.add('is-matched');
+                if ((selectedCards.length)%2 == 0 && selectedCards.length > 1) {
 
-            } else {    
+                    let card1 = selectedCards[selectedCards.length - 1];
+                    let card2 = selectedCards[selectedCards.length - 2];
 
-                // Flip back cards
-                alert ("Sorry, cards do not match.");
+                    if (card1.innerText === card2.innerText) {
 
-                let selected = document.querySelectorAll('.is-selected');
+                        alert ("There's a match!");
 
-                /*Set timeout to let user see change before flipping*/
-                setTimeout(() => { 
+                        matchedCards.push(card1, card2);
+                        console.log(matchedCards);
 
-                    selected.forEach((el) => {
-                        flipCard(el);
-                    });
+                        card1.classList.add('is-matched');
+                        card2.classList.add('is-matched');
 
-                }, 1000);
-                                
-                selectedCards = [];
-                matchedCards = [];
+                    } else {    
 
-                  // Reshuffle
+                        // Flip back cards
+                        alert ("Sorry, cards do not match.");
 
-              }
+                        let selected = document.querySelectorAll('.is-selected');
 
-          }
+                        /*Set timeout to let user see change before flipping*/
+                        setTimeout(() => { 
 
-        // If we've matched all the cards, display a message.
-        if (matchedCards.length > cards.length) {
-            alert('You matched all the cards, nice job!');
-        }
-        
+                            selected.forEach((el) => {
+                                flipCard(el);
+                            });
+
+                        }, 1000);
+
+                        selectedCards = [];
+                        matchedCards = [];
+
+                          // Reshuffle
+
+                      }
+
+                  }
+
+
+            }
+
+        });
+
     });
-      
-  });
     
 });
