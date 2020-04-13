@@ -15,6 +15,14 @@ window.addEventListener('DOMContentLoaded', function() {
     let selectedCards = [];
     let matchedCards = [];
     let $alert = document.getElementById('alert');
+
+    
+    // Click anywhere on panel to hide
+
+    $alert.onclick = () => {
+        $alert.classList.remove('show');            
+    };
+
     
     // Reveal card
     
@@ -31,10 +39,11 @@ window.addEventListener('DOMContentLoaded', function() {
     
     // Notify
     
-    notify = (note) => {
+    notify = (note="", notify="false") => {
+
         $alert.classList.add('show');
-        alert(note);
         $alert.textContent = (note);
+
     }
     
     // Reset 
@@ -74,6 +83,7 @@ window.addEventListener('DOMContentLoaded', function() {
                                 
                 reset('.is-selected');
                 
+                
             } else {
                 
                 //3. 
@@ -99,7 +109,7 @@ window.addEventListener('DOMContentLoaded', function() {
                         let note = "There's a match!"
 
                         notify(note);
-
+                        
                         matchedCards.push(card1, card2);
 
                         card1.classList.add('is-matched');
@@ -108,7 +118,9 @@ window.addEventListener('DOMContentLoaded', function() {
                     } else {    
 
                         // Flip back cards
-                        alert ("Sorry, cards do not match.");
+                        let note = ("Sorry, cards do not match.");
+                        
+                        notify (note);
 
                         reset('.is-selected');
 

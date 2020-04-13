@@ -101,6 +101,7 @@ body {
     font-size: 4em;
     border: 2px solid #e7e7e7;
     border-radius: .25rem;
+    cursor: pointer;
     background-color: rgb(0,187,206);
     transition: opacity 3s;
 }
