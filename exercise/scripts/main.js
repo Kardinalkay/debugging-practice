@@ -71,6 +71,8 @@ window.addEventListener('DOMContentLoaded', function() {
                             
               let selected = document.querySelectorAll('.is-selected');
               
+              /*Set timeout to let user see change before flipping*/
+              
               setTimeout(function(){ 
                   
                   selected.forEach(function(el) {
