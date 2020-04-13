@@ -22,9 +22,9 @@ window.addEventListener('DOMContentLoaded', function() {
     
     //Flip back cards
 
-/*    function flipCard(el) {
+    function flipCard(el) {
         el.classList.remove('is-selected');
-    }*/
+    }
 
 
     cards.forEach(function(card) {
