@@ -17,15 +17,21 @@ window.addEventListener('DOMContentLoaded', function() {
     
     // Reveal card
     
-    function revealCard (el, selCards, card) {
+    revealCard = (el, selCards, card) => {
         el.classList.add('is-selected'); 
         selCards.push(card); 
     }
     
-    //Flip back cards
+    // Flip back cards
 
-    function flipCard(el) {
+    flipCard = (el) => {
         el.classList.remove('is-selected');
+    }
+    
+    // Notify
+    
+    notify = () => {
+        
     }
 
 
